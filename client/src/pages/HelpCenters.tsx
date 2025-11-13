@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
@@ -22,7 +22,7 @@ export default function HelpCenters() {
   };
 
   // Add markers when map is ready and centers are loaded
-  useState(() => {
+  useEffect(() => {
     if (mapReady && map && centers && markers.length === 0) {
       const newMarkers: google.maps.Marker[] = [];
       
@@ -55,7 +55,7 @@ export default function HelpCenters() {
         map.fitBounds(bounds);
       }
     }
-  });
+  }, [mapReady, map, centers, markers.length, language]);
 
   const openDirections = (lat: string, lng: string) => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;

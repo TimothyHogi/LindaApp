@@ -37,3 +37,4 @@
 
 ## Bug Fixes
 - [x] Debug and fix AI Chat Assistant not working issue
+- [x] Fix Help Centers Map to display markers on the map
