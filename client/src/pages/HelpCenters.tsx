@@ -13,6 +13,7 @@ export default function HelpCenters() {
   const [mapReady, setMapReady] = useState(false);
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const [markers, setMarkers] = useState<google.maps.Marker[]>([]);
+  const [visibleTypes, setVisibleTypes] = useState<Set<string>>(new Set(["ngo", "shelter", "legal_aid"]));
 
   const { data: centers, isLoading } = trpc.helpCenters.getAll.useQuery();
 
@@ -36,6 +37,9 @@ export default function HelpCenters() {
           title: language === "sw" ? center.nameSw : center.nameEn,
         });
 
+        // Store center type on marker for filtering
+        (marker as any).centerType = center.type;
+
         marker.addListener("click", () => {
           setSelectedCenter(center.id);
           map.panTo(marker.getPosition()!);
@@ -56,6 +60,26 @@ export default function HelpCenters() {
       }
     }
   }, [mapReady, map, centers, markers.length, language]);
+
+  // Update marker visibility when filter changes
+  useEffect(() => {
+    markers.forEach((marker) => {
+      const centerType = (marker as any).centerType;
+      marker.setVisible(visibleTypes.has(centerType));
+    });
+  }, [visibleTypes, markers]);
+
+  const toggleType = (type: string) => {
+    setVisibleTypes((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(type)) {
+        newSet.delete(type);
+      } else {
+        newSet.add(type);
+      }
+      return newSet;
+    });
+  };
 
   const openDirections = (lat: string, lng: string) => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
@@ -92,6 +116,38 @@ export default function HelpCenters() {
           </div>
         </div>
       </header>
+
+      {/* Filter Buttons */}
+      <div className="bg-card border-b border-border">
+        <div className="mobile-container py-3">
+          <div className="flex gap-2 flex-wrap">
+            <Button
+              variant={visibleTypes.has("ngo") ? "default" : "outline"}
+              size="sm"
+              onClick={() => toggleType("ngo")}
+              className="text-xs"
+            >
+              🏢 {t("NGOs", "Mashirika")}
+            </Button>
+            <Button
+              variant={visibleTypes.has("shelter") ? "default" : "outline"}
+              size="sm"
+              onClick={() => toggleType("shelter")}
+              className="text-xs"
+            >
+              🏠 {t("Shelters", "Hifadhi")}
+            </Button>
+            <Button
+              variant={visibleTypes.has("legal_aid") ? "default" : "outline"}
+              size="sm"
+              onClick={() => toggleType("legal_aid")}
+              className="text-xs"
+            >
+              ⚖️ {t("Legal Aid", "Msaada wa Kisheria")}
+            </Button>
+          </div>
+        </div>
+      </div>
 
       {/* Map */}
       <div className="h-[400px] w-full">

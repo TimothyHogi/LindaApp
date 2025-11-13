@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Link, useLocation } from "wouter";
-import { ArrowLeft, Camera, Mic, MicOff, MapPin, Loader2, CheckCircle } from "lucide-react";
+import { ArrowLeft, Camera, Mic, MicOff, MapPin, Loader2, CheckCircle, Phone } from "lucide-react";
 import { toast } from "sonner";
 import { getLoginUrl } from "@/const";
 
@@ -454,6 +454,34 @@ export default function Report() {
           </Button>
         </form>
       </main>
+
+      {/* Emergency Call Floating Button */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-2">
+        <a href="tel:999">
+          <Button
+            size="lg"
+            className="rounded-full h-16 w-16 shadow-lg bg-red-600 hover:bg-red-700 text-white"
+            title={t("Call Police (999)", "Piga Polisi (999)")}
+          >
+            <div className="flex flex-col items-center">
+              <Phone className="w-6 h-6" />
+              <span className="text-xs font-bold">999</span>
+            </div>
+          </Button>
+        </a>
+        <a href="tel:116">
+          <Button
+            size="lg"
+            className="rounded-full h-16 w-16 shadow-lg bg-orange-600 hover:bg-orange-700 text-white"
+            title={t("Call Childline (116)", "Piga Childline (116)")}
+          >
+            <div className="flex flex-col items-center">
+              <Phone className="w-6 h-6" />
+              <span className="text-xs font-bold">116</span>
+            </div>
+          </Button>
+        </a>
+      </div>
     </div>
   );
 }

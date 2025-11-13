@@ -39,3 +39,11 @@
 - [x] Debug and fix AI Chat Assistant not working issue
 - [x] Fix Help Centers Map to display markers on the map
 - [x] Fix Google Maps API being loaded multiple times
+
+## New Enhancements
+- [x] Add simple toggle filter buttons to Help Centers Map
+- [x] Add emergency call floating button to Report Abuse page
+- [x] Expand Learning Corner with lessons on online scams
+- [x] Add lessons on protecting children on social media
+- [x] Add lessons on safe use of dating apps
+- [x] Add lessons on domestic/care worker challenges and getting help
