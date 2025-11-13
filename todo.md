@@ -38,3 +38,8 @@
 ## Bug Fixes
 - [x] Debug and fix AI Chat Assistant not working issue
 - [x] Fix Help Centers Map to display markers on the map
+
+## Help Centers Map Enhancements
+- [x] Add custom marker icons for different center types (NGO, shelter, legal aid)
+- [x] Implement search/filter functionality by type and name
+- [x] Add user location button to find nearest help centers
