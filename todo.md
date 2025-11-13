@@ -34,3 +34,6 @@
 - [x] Test language switching
 - [x] Save checkpoint
 - [x] Deliver final app
+
+## Bug Fixes
+- [x] Debug and fix AI Chat Assistant not working issue
